@@ -1,0 +1,122 @@
+<!-- <!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Sign Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Hand Sign Recognition</h1>
+    <video id="video" autoplay></video>
+    <button id="capture">Capture</button>
+    <h2 id="result"></h2>
+
+    <script>
+        const video = document.getElementById('video');
+        const result = document.getElementById('result');
+        const captureButton = document.getElementById('capture');
+        const imageData = canvas.toDataURL('image/jpeg').split(',')[1]; // Only get the base64 part
+
+        // Access the camera
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            });
+
+        // Capture image and send to server
+        captureButton.addEventListener('click', () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0);
+            const imageData = canvas.toDataURL('image/jpeg').split(',')[1];
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image: imageData })
+            })
+            .then(response => response.json())
+            .then(data => {
+                result.textContent = 'Predicted: ' + data.prediction;
+            });
+        });
+    </script>
+</body>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBB</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+    <div class="container">
+        <header>
+            <h1>Hand Sign Recognition</h1>
+            <p>By Bhupesh Ther</p>
+        </header>
+
+        <section class="camera-section">
+            <h2>Live Camera Feed</h2>
+            <video id="video" autoplay></video>
+            <button id="capture" class="btn">Capture</button>
+            <h2 id="result" class="result"></h2>
+        </section>
+
+        <hr>
+
+        <section class="upload-section">
+            <h2>Upload an Image or Video</h2>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" class="file-input">
+                <input type="submit" value="Upload" class="btn">
+            </form>
+        </section>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const result = document.getElementById('result');
+        const captureButton = document.getElementById('capture');
+
+        // Access the camera
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            });
+
+        // Capture image and send to server
+        captureButton.addEventListener('click', () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0);
+
+            const imageData = canvas.toDataURL('image/jpeg').split(',')[1];
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image: imageData })
+            })
+            .then(response => response.json())
+            .then(data => {
+                result.textContent = 'Predicted: ' + data.prediction;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                result.textContent = 'Error: ' + error.message;
+            });
+        });
+    </script>
+
+
+</body>
+</html> -->

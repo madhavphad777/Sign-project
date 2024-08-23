@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Are Equal</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Favicons -->
+    <!-- <link href="/static/assets/img/favicon.png" rel="icon">
+    <link href="/static/assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="/static/assets/css/services.css" rel="stylesheet">
+    <style>
+        .display-area {
+            display: flex;
+            justify-content: space-between;
+        }
+        #predicted-video, #predicted-image {
+            max-width: 100%;
+            max-height: 300px;
+        }
+        .control-buttons {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center">
+        <div class="container d-flex justify-content-between">
+            <div class="logo">
+                <!-- Uncomment below if you prefer to use an text logo -->
+                <h1><a href="/">We Are Equal</a></h1>
+                <!-- <a href="index.html"><img src="/static/assets/img/logo.png" alt="" class="img-fluid"></a> -->
+              </div>
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto" href="/">Home</a></li>
+                    <li><a class="nav-link scrollto" href="/about">About</a></li>
+                    <li class="dropdown">
+                      <a class="nav-link scrollto active">Services</a>
+                      <ul class="dropdown-content">
+                        <li><a href="/communication">Communication</a></li>
+                        <li><a href="/services/learning">Learning</a></li>
+                        <li><a href="/https://job-portal-2-p5bv.onrender.com/" target="_blank">Jobs</a></li>
+                      </ul>
+                    </li>
+                    <li><a class="nav-link scrollto" href="/contact">Contact</a></li>
+                  </ul>     
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+        </div>
+    </header><!-- #header -->
+    
+    <!-- ======= Hero Section ======= -->
+    <!-- <section id="hero" class="clearfix">
+        <div class="container" data-aos="fade-up">
+            <div class="hero-img" data-aos="zoom-out" data-aos-delay="200">
+                <img src="/static/assets/img/hero-img.svg" alt="" class="img-fluid">
+            </div>
+            <div class="hero-info" data-aos="zoom-in" data-aos-delay="100">
+                <h2>We provide<br><span>solutions</span><br>for your business!</h2>
+                <div>
+                    <a href="/about" class="btn-get-started scrollto">Get Started</a>
+                    <a href="/services" class="btn-services scrollto">Our Services</a>
+                </div>
+            </div>
+        </div>
+    </section>End Hero Section -->
+
+    <div class="container">
+        <h1 class="text-center my-4">Sign Language Recognition</h1>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Camera</h2>
+                <video id="video" width="100%" height="auto" autoplay class="border"></video>
+                <div class="control-buttons">
+                    <button id="startButton" class="btn btn-primary btn-block">Start</button>
+                    <button id="stopButton" class="btn btn-danger btn-block">Stop</button>
+                    <button id="speakButton" class="btn btn-success btn-block">Speak</button>
+                </div>
+                <p>Prediction: <span id="prediction" class="font-weight-bold"></span></p>
+            </div>
+            
+            <div class="col-md-6">
+                <h2>Predict from Text</h2>
+                <form id="predict-form" method="post">
+                    <div class="form-group">
+                        <input type="text" id="input_text" name="input_text" class="form-control" placeholder="Enter text" required>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-block">Predict</button>
+                </form>
+                
+                <div class="display-area mt-4">
+                    <div id="image-container" class="mb-3">
+                        <h4>Predicted Image</h4>
+                        <img id="predicted-image" src="" alt="Predicted Image" class="img-fluid">
+                    </div>
+                    <div id="video-container">
+                        <h4>Predicted Video</h4>
+                        <video id="predicted-video" controls class="img-fluid">
+                            <source id="video-source" src="" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+                <div class="control-buttons">
+                    <button id="replay-button" class="btn btn-info btn-block">Replay</button>
+                    <button id="close-button" class="btn btn-secondary btn-block">Close</button>
+                </div>
+            </div>
+        </div>
+        
+        <hr class="my-4">
+        
+        <section class="upload-section">
+            <h2 class="text-center">Upload an Image or Video</h2>
+            <form action="/upload" method="post" enctype="multipart/form-data" class="form-inline justify-content-center">
+                <div class="form-group mb-2">
+                    <input type="file" name="file" class="form-control-file" required>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2 ml-2">Upload</button>
+            </form>
+        </section>
+    </div>
+    <!-- Google Translate Element -->
+<div id="google_translate_element"></div>
+    
+<!-- ======= Footer ======= -->
+<footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+  
+          <div class="col-lg-4 col-md-6 footer-info">
+            <h3>We Are Equal</h3>
+            <p>We are equal is dedicated to bridging the gap between the deaf and hearing communities. Our platform offers tools for real-time translation, video call support, and educational resources, ensuring seamless and inclusive communication for everyone.</p>
+          </div>
+  
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><a class="nav-link scrollto" href="/">Home</a></li>
+              <li><a class="nav-link scrollto" href="/about">About</a></li>
+              <li><a class="nav-link scrollto" href="/contact">Contact</a></li>
+            </ul>
+          </div>
+  
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="/communication">Communication</a></li>
+              <li><a href="/services/learning">Learning</a></li>
+              <li><a href="https://job-portal-2-p5bv.onrender.com/" target="_blank">Jobs</a></li>
+            </ul>
+          </div>
+  
+          <div class="col-lg-2 col-md-6 footer-contact">
+            <h4>Contact Us</h4>
+            <p>
+              V.N. Purav Marg, Chunabhatti, Sion East, Mumbai, Maharashtra 400022 <br>
+              <strong>Phone:</strong> +1 5589 55488 55<br>
+              <strong>Email:</strong> info@example.com<br>
+            </p>
+          </div>
+  
+          <div class="col-lg-2 col-md-6 footer-newsletter">
+            <h4>Social Media Handles</h4>
+            <div class="social-links">
+              <a href="https://x.com/login" class="twitter"><i class="bi bi-twitter"></i></a>
+              <a href="https://www.facebook.com/login/" class="facebook"><i class="bi bi-facebook"></i></a>
+              <a href="https://www.instagram.com/accounts/login/?hl=en" class="instagram"><i class="bi bi-instagram"></i></a>
+              <a href="https://linkedin.com/login/" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>We Are Equal</strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <!-- Google Translate Script -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        const video = document.getElementById('video');
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+        const speakButton = document.getElementById('speakButton');
+        const predictionSpan = document.getElementById('prediction');
+        let stream;
+        let intervalId;
+
+        async function startVideo() {
+            stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+            startButton.disabled = true;
+            stopButton.disabled = false;
+            intervalId = setInterval(predict, 1000); // Predict every second
+        }
+
+        async function stopVideo() {
+            if (stream) {
+                const tracks = stream.getTracks();
+                tracks.forEach(track => track.stop());
+                video.srcObject = null;
+                clearInterval(intervalId); // Stop the prediction interval
+                startButton.disabled = false;
+                stopButton.disabled = true;
+            }
+        }
+
+        function captureFrame() {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            return canvas.toDataURL('image/jpeg');
+        }
+
+        async function predict() {
+            const image = captureFrame();
+            try {
+                const response = await fetch('http://127.0.0.1:5000/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ image: image })
+                });
+
+                const data = await response.json();
+                console.log('Prediction:', data.prediction);
+                predictionSpan.textContent = data.prediction;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function speakPrediction() {
+            const prediction = predictionSpan.textContent;
+            if (prediction) {
+                const utterance = new SpeechSynthesisUtterance(prediction);
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        startButton.addEventListener('click', startVideo);
+        stopButton.addEventListener('click', stopVideo);
+        speakButton.addEventListener('click', speakPrediction);
+
+        document.getElementById('predict-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let formData = new FormData(this);
+
+            fetch('/word', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.image_path) {
+                    document.getElementById('predicted-image').src = data.image_path;
+                } else if (data.image_error) {
+                    document.getElementById('predicted-image').src = '';
+                    alert(data.image_error);
+                }
+                
+                if (data.video_path) {
+                    document.getElementById('video-source').src = data.video_path;
+                    document.getElementById('predicted-video').load();
+                } else if (data.video_error) {
+                    document.getElementById('video-source').src = '';
+                    document.getElementById('predicted-video').load();
+                    alert(data.video_error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+</head>
+<body>
+    <h1>Prediction Result</h1>
+    {% if image_url %}
+    <h2>Image Prediction</h2>
+    <img src="{{ image_url }}" alt="Processed Image">
+    <p>Predicted Character: {{ prediction }}</p>
+    {% elif video_url %}
+    <h2>Video Prediction</h2>
+    <p>Prediction: {{ prediction }}</p>
+    <video width="600" controls>
+        <source src="{{ video_url }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <video width="600" controls>
+        <source src="http://127.0.0.1:5000/uploads/00339.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+
+    {% endif %}
+    <br><br>
+    <a href="/">Go Back</a>
+</body>
+</html>
